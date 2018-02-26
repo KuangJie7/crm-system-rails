@@ -1,0 +1,13 @@
+<h4>反馈记录</h4>
+<%= form_for :feedback ,url: customer_feedbacks_path do |f| %>
+    <div class="input-group">
+      <p>
+        <%= f.label :跟进内容 %><br>
+        <%= f.text_area :feedback_content ,class:"form-control",placeholder:"请输入内容" %>
+      </p>
+      <p>
+        <%= f.submit "提交",class:"btn btn-sm btn-primary"%>
+      </p>
+    </div>
+    <%=link_to "返回", :back %>
+<% end %>

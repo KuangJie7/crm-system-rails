@@ -1,0 +1,19 @@
+<b><h1>降低潜在等级成功!</h1></b>
+<% if params[:potential_level] == "2" %>
+    <h4>以下客户成功降级至<b>全部客户列表：</b></h4>
+<% elsif params[:potential_level]=="3" %>
+    <h4>以下客户成功降级至<b>潜在客户列表：</b></h4>
+<% end %>
+<ul>
+  <% @customers.each do |t| %>
+      <li><%= t.team.name %></li>
+  <% end %>
+</ul>
+<br>
+<% if params[:potential_level] == "1" %>
+    <%= link_to "返回", teams_url(current_user.id) + "?potential_level=1",class:"btn btn-md btn-primary" %>
+<% elsif params[:potential_level]=="2" %>
+    <%= link_to "返回", potential_teams_url(current_user.id) + "?potential_level=2",class:"btn btn-md btn-primary" %>
+<% elsif params[:potential_level]=="3" %>
+    <%= link_to "返回", deep_teams_url(current_user.id) + "?potential_level=3" ,class:"btn btn-md btn-primary"%>
+<% end %>

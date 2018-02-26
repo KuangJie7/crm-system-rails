@@ -1,0 +1,18 @@
+{
+  "name": "beary-crm",
+  "private": true,
+  "dependencies": {
+    "@rails/webpacker": "^3.0.2",
+    "babel-preset-react": "^6.24.1",
+    "coffeescript": "1.12.7",
+    "jquery": "^3.2.1",
+    "normalize.css": "^7.0.0",
+    "prop-types": "^15.6.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react_ujs": "^2.3.1"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^2.9.2"
+  }
+}

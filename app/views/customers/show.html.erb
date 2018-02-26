@@ -1,0 +1,69 @@
+<h3><b><%=@team.name %></b>的名片</h3>
+<% if @customer.users.exists? %>
+    <i><p>已分配给销售：<%=@customer.users[0].name%></p></i>
+<%else %>
+  <%=link_to "分配销售",allot_path%>
+<%end%>
+<br>
+
+<h4><b>基本信息：</b></h4>
+<ul>
+  <li><b>id:</b><%=@team.id %></li>
+  <li><b>域名:</b><%=@team.subdomain %>@<%=@team.email_domain %></li>
+  <li><b>注册时间:</b><%=@team.created.strftime('%Y-%m-%d %H:%M:%S') %></li>
+  <li><b>更新时间:</b><%=@team.updated.strftime('%Y-%m-%d %H:%M:%S') %></li>
+  <li><b>描述：</b><i><%=@team.description %></i></li>
+</ul>
+<br>
+
+<h4><b>联系人信息:</b></h4>
+<ul>
+  <li><b>账户名:</b><%=@user.name %></li>
+  <li><b>注册姓名:</b><%=@user.full_name %></li>
+  <li><b>e-mail:</b><%=@user.email %></li>
+  <li><b>联系电话:</b><%=@user.mobile %></li>
+  <li><b>注册时间:</b><%=@user.created.strftime('%Y-%m-%d %H:%M:%S') %></li>
+  <li><b>资料：</b><i><%=@user.profile %></i></li>
+</ul>
+<br>
+
+<br>
+<h4><b>备注信息:</b></h4>
+<% if @description %>
+<%=link_to "修改备注信息",edit_customer_description_path(@customer.team_id) %>
+<br>
+<ul>
+  <li><b>等级：</b><i><%=@description.level %></i></li>
+  <li><b>行业:</b><%=@description.field %></li>
+  <li><b>规模:</b><%=@description.scale %></li>
+  <li><b>部门:</b><%=@description.department %></li>
+  <li><b>岗位:</b><%=@description.job %></li>
+  <li><b>备注:</b><%=@description.note %></li>
+</ul>
+<% else %>
+    <%=link_to "添加备注信息",new_customer_description_path(@customer.team_id) %>
+
+<% end %>
+<br>
+<br>
+
+<h4><b>跟进信息:</b></h4>
+<%=link_to "新增跟进",new_customer_feedback_path(@customer.team_id) %><br>
+<table class="table table-hover">
+  <tr>
+    <th>跟进人</th>
+    <th>跟进时间</th>
+    <th>跟进内容</th>
+  </tr>
+  <% @feedbacks.each do |c| %>
+      <tr>
+        <td><%=c.crm_user_name %></td>
+        <td><%=c.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td><%=c.feedback_content %></td>
+      </tr>
+  <% end %>
+</table>
+
+
+<%= link_to "返回" ,:back %>
+

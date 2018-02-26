@@ -1,0 +1,47 @@
+<% provide(:title,"用户注册") %>
+<h1>用户注册</h1>
+<div>
+  <%= form_for :user,url: users_path do |f| %>
+
+    <% if @user.errors.any? %>
+        <div id="error_explanation" class="alert alert-danger">
+          <h2>
+            您的注册共出现<%= @user.errors.size %>个错误<br>分别是：
+          </h2>
+          <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+
+   <div class="input-group">
+    <p>
+      <%= f.label :用户名 %><br>
+      <%= f.text_field :name ,class:"form-control",placeholder:"请输入用户名" %>
+    </p>
+
+    <p>
+      <%= f.label :密码 %><br>
+      <%= f.password_field :password ,class:"form-control",placeholder:"请输入密码" %>
+    </p>
+
+    <p>
+      <%=f.label :密码验证 %><br>
+      <%=f.password_field :password_confirmation,class:"form-control" ,placeholder:"请再次输入密码" %>
+    </p>
+
+    <p>
+      <%= f.label :Email %><br>
+      <%= f.email_field :email,class:"form-control" , placeholder:"请输入电子邮箱"%>
+    </p>
+
+    <p>
+      <%= f.submit :注册,class:"btn btn-sm btn-primary"%>
+    </p>
+   </div>
+  <% end %>
+  <%=link_to "返回主页",sessions_new_path ,class:"btn btn-sm btn-primary"%>
+</div>

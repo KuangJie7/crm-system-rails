@@ -1,0 +1,30 @@
+<b><h1>操作完成！</h1></b>
+<% if @new_coming_customers != [] %>
+<% if params[:potential_level] == "1" %>
+        <h4>以下客户成功添加至<b>潜在客户列表：</b></h4>
+<% elsif params[:potential_level]=="2" %>
+        <h4>以下客户成功添加至<b>深层客户列表：</b></h4>
+<% end %>
+<ul>
+      <% @new_coming_customers.each do |t| %>
+          <li><%= t.team.name %></li>
+      <% end %>
+  <% end %>
+</ul>
+<br>
+<% if @already_added_customers != [] %>
+    <h4>以下客户添加失败（是否处于更高等级？）：</h4>
+    <ul>
+      <% @already_added_customers.each do |t| %>
+          <li><%= t.team.name %></li>
+      <% end %>
+    </ul>
+<% end %>
+<br>
+<% if params[:potential_level] == "1" %>
+    <%= link_to "返回", teams_url(current_user.id) + "?potential_level=1",class:"btn btn-md btn-primary" %>
+<% elsif params[:potential_level]=="2" %>
+    <%= link_to "返回", potential_teams_url(current_user.id) + "?potential_level=2",class:"btn btn-md btn-primary" %>
+<% elsif params[:potential_level]=="3" %>
+    <%= link_to "返回", deep_teams_url(current_user.id) + "?potential_level=3" ,class:"btn btn-md btn-primary"%>
+<% end %>

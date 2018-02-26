@@ -1,0 +1,67 @@
+<h3>我跟进的客户有：</h3><br>
+<%= search_form_for @q,url: mylist_url do |f| %>
+    <div class="form-group">
+      <%= f.label :客户序号 %>
+      <%= f.search_field :team_id_eq %>
+      <br>
+      <%= f.label :客户名称 %>
+      <%= f.search_field :team_name_cont %>
+
+      <br>
+      <%= f.label :开始日期 %>
+      <%= f.text_field :alloted_time_gteq, 'data-behaviour' => 'datepicker data-date-autoclose' %>
+
+      <%= f.label :结束日期 %>
+      <%= f.text_field :alloted_time_lteq, 'data-behaviour' => 'datepicker data-date-autoclose' %>
+      <br>
+      <%= f.submit "筛选", class: "btn btn-sm btn-primary"%>
+    </div>
+    <%= link_to "复原", mylist_path, class: "btn btn-sm btn-primary" %>
+<% end %>
+<table class="table table-hover">
+  <tr>
+    <th>列表序号</th>
+    <th><%= sort_link(@q, :team_name, '客户名称') %></th>
+    <th><%= sort_link(@q, :team_id, '客户序号') %></th>
+    <th><%= sort_link(@q, :alloted_time, '分配时间',default_order: :asc) %></th>
+    <th>最新跟进情况</th>
+  </tr>
+    <% @aimCustomers.each do |c| %>
+      <tr>
+        <td><%= current_user.customers.index(c)+1 %></td>
+        <%v = c.team %>
+        <td><%= link_to customer_path(v.id) do %><%= v.name%><%end%></td>
+        <td><%= c.team.id %></td>
+        <td><i><%= c.alloted_time.strftime('%Y-%m-%d %H:%M:%S') %></i></td>
+        <% f = c.feedbacks%>
+        <%if c.feedbacks.exists?%>
+            <td><p><b>"<%=f.last.feedback_content%>"</b>——<i><%=f.last.created_at.strftime('%Y-%m-%d %H:%M:%S')%></i></p></td>
+        <%else%>
+          <td>无</td>
+        <% end %>
+      </tr>
+  <% end %>
+</table>
+
+<%=link_to "返回",user_path%>
+
+<%= will_paginate @aimCustomers, renderer: BootstrapPagination::Rails %>
+
+
+<script type="text/javascript" charset="UTF-8">
+    $.fn.datepicker.defaults.format = "yyyy-mm-dd";
+    $.fn.datepicker.dates['en'] = {
+        days: ["日", "一", "二", "三", "四", "五", "六"],
+        daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        daysMin: ["日", "一", "二", "三", "四", "五", "六"],
+        months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        today: "Today",
+        clear: "Clear",
+        format: "yyyy-mm-dd",
+        titleFormat: "mm yyyy",
+        weekStart: 0
+    };
+    $('[data-behaviour~=datepicker]').datepicker({autoclose: true, todayHighlight: true});
+
+</script>

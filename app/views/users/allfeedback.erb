@@ -1,0 +1,68 @@
+<h3>以下是所有的跟进记录：</h3>
+<table class="table table-bordered table-hover" data-toggle="table">
+      <thead>
+      <tr>
+        <th><%= sort_link(@q, :user_name, '销售姓名') %> </th>
+        <th><%= sort_link(@q, :customer_team_name, '跟进客户') %></th>
+        <th>跟进序号</th>
+        <th><%= sort_link(@q, :created_at, '跟进时间') %></th>
+        <th>跟进内容</th>
+      </tr>
+      </thead>
+      <tbody>
+      <%= search_form_for @q do |f| %>
+          <div class="form-group">
+            <%= f.label :销售姓名 %>
+            <%= f.select(:crm_user_name_cont, [""] + User.all.collect {|c| [c.name, c.name]}, :select => [""]) %>
+            <br>
+            <%= f.label :客户名称 %>
+            <%= f.search_field :customer_team_name_cont %>
+            <br>
+            <%= f.label :跟进内容 %>
+            <%= f.search_field :feedback_content_cont %>
+            <br>
+            <%= f.label :开始日期 %>
+            <%= f.text_field :created_at_gteq, 'data-behaviour' => 'datepicker data-date-autoclose' %>
+
+            <%= f.label :结束日期 %>
+            <%= f.text_field :created_at_lteq, 'data-behaviour' => 'datepicker data-date-autoclose' %>
+            <br>
+            <%= f.submit "筛选",class: "btn btn-sm btn-primary"%>
+          </div>
+          <%= link_to "复原", feedbacks_path, class: "btn btn-sm btn-primary" %>
+      <% end %>
+
+      <% @aimFeedback.each do |u| %>
+          <tr>
+            <td><%= u.user.name %></td>
+            <td><%= u.customer.team.name %></td>
+            <td><%= u.customer.feedbacks.index(u) + 1 %></td>
+            <td><%= u.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+            <td><%= u.feedback_content %></td>
+          </tr>
+      <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @aimFeedback, renderer: BootstrapPagination::Rails %>
+
+<%= link_to "返回", user_path(current_user.id) %>
+
+
+<script type="text/javascript" charset="UTF-8">
+    $.fn.datepicker.defaults.format = "yyyy-mm-dd";
+    $.fn.datepicker.dates['en'] = {
+        days: ["日", "一", "二", "三", "四", "五", "六"],
+        daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        daysMin: ["日", "一", "二", "三", "四", "五", "六"],
+        months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        today: "Today",
+        clear: "Clear",
+        format: "yyyy-mm-dd",
+        titleFormat: "mm yyyy",
+        weekStart: 0
+    };
+    $('[data-behaviour~=datepicker]').datepicker({autoclose: true, todayHighlight: true});
+
+</script>

@@ -1,0 +1,19 @@
+<h1>欢迎使用crm</h1>
+<h4>用户登录</h4>
+<div>
+  <div>
+    <%= form_for(:session,url: login_path) do |f| %>
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email,class:"form-control" %><br>
+
+        <%= f.label :密码 %>
+        <%= f.password_field :password,class:"form-control" %><br>
+
+        <%= f.submit "登录",class:"btn btn-sm btn-primary" %>
+      <% end %>
+      </div>
+    <br>
+    <%=link_to "注册用户",new_user_path,class:"btn btn-sm btn-primary" %>
+  </div>
+</div>

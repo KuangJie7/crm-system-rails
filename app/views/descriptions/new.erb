@@ -1,0 +1,40 @@
+<h4>新建客户描述：</h4>
+<%= form_for :description ,url: customer_descriptions_path do |f| %>
+    <div class="input-group">
+      <p>
+        <%= f.label :行业 %><br>
+        <%= f.select(:field,options_for_select([["互联网","互联网"],["金融","金融"],["教育","教育"]], :selected => params[:field]))  %>
+      </p>
+
+      <p>
+        <%= f.label :规模 %><br>
+        <%= f.select(:scale,options_for_select([["0~50","0~50"],["50~100","50~100"],["100~500","100~500"]], :selected => params[:scale]))  %>
+      </p>
+
+      <p>
+        <%= f.label :等级 %><br>
+        <%= f.select(:level,options_for_select([["A","A"],["B","B"],["C","C"],["D","D"]], :selected => params[:level]))  %>
+      </p>
+
+      <p>
+        <%= f.label :部门 %><br>
+        <%= f.text_area :department %>
+      </p>
+
+
+      <p>
+        <%= f.label :岗位 %><br>
+        <%= f.text_area :job %>
+      </p>
+
+      <p>
+        <%= f.label :备注 %><br>
+        <%= f.text_area :note %>
+      </p>
+
+      <p>
+        <%= f.submit "提交",class:"btn btn-sm btn-primary"%>
+      </p>
+    </div>
+    <%=link_to "返回", :back %>
+<% end %>

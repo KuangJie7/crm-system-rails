@@ -1,0 +1,15 @@
+<h3>你好，<%=@user.name %></h3>
+
+
+
+
+<%=link_to "查看我的客户",mylist_path ,class:"btn btn-md btn-primary"%><br>
+
+<%=link_to "查看所有客户列表",teams_url(current_user.id)+"?potential_level=1" ,class:"btn btn-md btn-primary"%><br>
+
+<%=link_to "查看所有跟进",feedbacks_path ,class:"btn btn-md btn-primary"%><br>
+
+
+<%=link_to "退出登录",logout_path ,class:"btn btn-md btn-danger"%><br>
+
+

@@ -1,0 +1,11 @@
+<h2>请问您想将<b><%=@team.name %></b>分配给以下哪位销售？</h2>
+<%= form_for :user ,url: allocation_path do |f| %>
+    <div class="input-group">
+      <p>
+        <%= f.label :销售 %><br>
+        <%= f.select(:name, User.all.collect { |c| [c.name,c.name]}) %>
+      </p>
+
+      <%= f.submit "保存" %>
+    </div>
+<% end %>
